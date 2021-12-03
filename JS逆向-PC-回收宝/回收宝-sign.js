@@ -1,3 +1,5 @@
+// http://www.huishoubao.com/evaluate/66138.html
+
 // import sha1 from 'sha1';
 function encodeUTF8(s) {
   var i, r = [], c, x;

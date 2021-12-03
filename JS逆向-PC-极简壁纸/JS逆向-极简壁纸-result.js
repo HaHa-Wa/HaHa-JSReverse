@@ -1,3 +1,4 @@
+// https://bz.zzzmh.cn/index
 var window = {
     atob :
         function (strText){return new Buffer.from(strText, "base64").toString("binary")},

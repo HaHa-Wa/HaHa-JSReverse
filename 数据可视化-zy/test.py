@@ -8,12 +8,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 z = -np.linspace(9,15,100)
-x = np.linspace(-26,26,100)
-
+x = np.linspace(-26,26,1000)
+# print(z)
 x, z = np.meshgrid(x, z)
-print(x,z)
 Z = -np.exp(-0.05*z) + 4 * (z+10)**2
 X = x**2
+print(type(X+Z))
 
 
 plt.contour(x, z, (X+Z), [0])

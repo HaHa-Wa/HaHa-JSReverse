@@ -10,3 +10,14 @@ var window = {
 for (var i = 1; i < 99999; i++){
     window.clearInterval(i);
 }
+
+// headers hook
+(function() {
+    var org = window.XMLHttpRequest.prototype.setRequestHeader;
+    window.XMLHttpRequest.prototype.setRequestHeader = function(key, value) {
+        if (key == 'lxlxlx') {
+            debugger;
+        }
+        return org.apply(this, arguments);
+    }
+})()

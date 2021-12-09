@@ -25,9 +25,7 @@ def ellipse(a, b, center=(0, 0), color='b', num=100, fill=True, edge=True, alpha
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.plot(x, y, '.')
-    # ax.plot(-x, y, '.')
     ax.plot(x, -y, '.')
-    # ax.plot(-x, -y, '.')
     plt.axis('scaled')
     plt.show()
 

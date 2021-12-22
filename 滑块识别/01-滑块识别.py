@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import cv2.cv2
 
 
@@ -24,11 +26,16 @@ def identify_gap(bg, tp, out):
     # print(type(bg_pic))
     from PIL import Image
     im = Image.fromarray(bg_pic)
-    im.save("your_file.jpeg")
+    im.save("bg_pic2.jpeg")
+    im2 = Image.fromarray(tp_pic)
+    im2.save("tp_pic2.jpeg")
     # cv2.imwrite(bg_pic, 'b1.png')  # 保存在本地
     # cv2.imwrite(tp_pic, 'q1.png')  # 保存在本地
     # 缺口匹配
+    pprint(bg_pic)
+    pprint(tp_pic)
     res = cv2.matchTemplate(bg_pic, tp_pic, cv2.TM_CCOEFF_NORMED)
+    pprint(res)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)  # 寻找最优匹配
 
     # 绘制方框

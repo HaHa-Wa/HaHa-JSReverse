@@ -39,8 +39,10 @@ def readInfo():
 
     print(allDict)
 
-    with open('ret.json', 'w')as f:
-        json.dump(allDict, f, ensure_ascii=False )
+    with open('ret.json', 'w') as f:
+        json.dump(allDict, f, ensure_ascii=False)
     return allDict
+
+
 allDict = readInfo()
 processing_data(allDict)

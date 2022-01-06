@@ -40,9 +40,9 @@ const visitor = {
     },
 
     // 替换 类似 !![]  换成 true
-    UnaryExpression(path) {
-        path.replaceWith(types.booleanLiteral(path.node.prefix))
-    },
+    // UnaryExpression(path) {
+    //     path.replaceWith(types.booleanLiteral(path.node.prefix))
+    // },
 
     // 将 类似 console['log']() 替换为 console.log()
     MemberExpression(path) {
@@ -55,6 +55,7 @@ const visitor = {
     },
 }
 
+// 替换while switch
 const visitor2 = {
     WhileStatement(path) {
         let node = path.node;
@@ -85,11 +86,60 @@ const visitor2 = {
         varPath.remove()
     }
 }
-//some function code
+
+// replaceFns
+const visitor3 = {
+    VariableDeclarator(path) {
+        let node = path.node
+        if (!types.isObjectExpression(node.init)) return
+        let properties = node.init.properties
+        try {
+            if (!types.isFunctionExpression(properties[0].value)) return
+            if (properties[0].value.body.body.length !== 1) return
+            let retStmt = properties[0].value.body.body[0]
+            if (!types.isReturnStatement(retStmt)) return
+
+        } catch (error) {
+            console.log('ignore: wrong fn arr', properties)
+        }
+
+        let objName = node.id.name
+        properties.forEach(prop => {
+            let key = prop.key.value
+            let params = prop.value.params
+            let retStmt = prop.value.body.body[0] // 替换体
+
+            const fnPath = path.getFunctionParent()
+            fnPath.traverse({
+                CallExpression: function (_path) {
+                    if (!types.isMemberExpression(_path.node.callee)) return
+                    let node = _path.node.callee
+                    if (!types.isIdentifier(node.object) || node.object.name !== objName) return
+
+                    if (!types.isStringLiteral(node.property) || node.property.value !== key) return
+                    let args = _path.node.arguments // 调用传入的参数
+
+                    if (types.isBinaryExpression(retStmt.argument) && args.length === 2) {
+                        _path.replaceWith(types.binaryExpression(retStmt.argument.operator, args[0], args[1]))
+                    }
+                    if (types.isLogicalExpression(retStmt.argument) && args.length === 2) {
+                        _path.replaceWith(types.logicalExpression(retStmt.argument.operator, args[0], args[1]))
+                    }
+                    if (types.isCallExpression(retStmt.argument) && types.isIdentifier(retStmt.argument.callee)) {
+                        _path.replaceWith(types.callExpression(args[0], args.slice(1)))
+                    }
+                }
+            })
+        })
+        path.remove()
+    }
+}
+
 
 //调用插件，处理源代码
 traverse(ast, visitor);
 traverse(ast, visitor2);
+traverse(ast, visitor3);
 
 //生成新的js code，并保存到文件中输出
 let {code} = generator(ast);

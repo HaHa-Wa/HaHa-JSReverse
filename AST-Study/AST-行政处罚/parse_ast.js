@@ -67,9 +67,7 @@ const visitor1 = {
                 break;
             }
             properties.push(types.ObjectProperty(left.property, right));
-
             next_sibling.remove();
-
         }
 
         if (properties.length == 0) {

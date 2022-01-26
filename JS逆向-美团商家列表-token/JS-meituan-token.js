@@ -1,16 +1,16 @@
 // 排序=>btoa 生成sign=>时间戳 => 加上其他字段=>再次加密=> 转换成url编码
 var window = {
-    'innerWidth': 1280,
-    'innerHeight': 800,
-    "location": {
-        'href': 'https://cd.meituan.com/meishi/c17/pn8/'
+    innerWidth: 1280,
+    innerHeight: 800,
+    location: {
+        href: 'https://cd.meituan.com/meishi/c17/pn8/'
     }
 };
 var navigator = {};
 var screen = {width: 1280, height: 800, availWidth: 1280, availHeight: 800, colorDepth: 30, pixelDepth: 30};
 var document = {
-    "documentElement": {
-        "attributes": {},
+    documentElement: {
+        attributes: {},
         clientWidth: 1280,
         clientHeight: 800
     },
@@ -4332,14 +4332,14 @@ payloadInfo = {
     "sort": "",
     "dinnerCountAttrId": "",
     "page": "8",
-    "userId": "127053351",
-    "uuid": "5164636f185e4d64bb7e.1643103839.1.0.0",
+    "userId": "*******",
+    "uuid": "*******.1643103839.1.0.0",
     "platform": "1",
     "partner": "126",
     "originUrl": "https://cd.meituan.com/meishi/c17/pn8/",
     "riskLevel": "1",
     "optimusCode": "10"
 }
-ret = Rohr_Opt.reload('https://cd.meituan.com/meishi/api/poi/getPoiList?cityName=%E6%88%90%E9%83%BD&cateId=17&areaId=0&sort=&dinnerCountAttrId=&page=7&userId=127053351&uuid=5164636f185e4d64bb7e.1643103839.1.0.0')
+ret = Rohr_Opt.reload('https://cd.meituan.com/meishi/api/poi/getPoiList?cityName=%E6%88%90%E9%83%BD&cateId=17&areaId=0&sort=&dinnerCountAttrId=&page=7&userId=127053351&uuid=****.1643103839.1.0.0')
 // ret = Rohr_Opt.reload(payloadInfo)
 console.log(ret)

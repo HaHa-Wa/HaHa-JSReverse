@@ -1,21 +1,24 @@
 // 排序=>btoa 生成sign=>时间戳 => 加上其他字段=>再次加密=> 转换成url编码
 var window = {
     'innerWidth': 1280,
+    'innerHeight': 800,
     "location": {
         'href': 'https://cd.meituan.com/meishi/c17/pn8/'
     }
 };
 var navigator = {};
-var screen = {width: 1280};
+var screen = {width: 1280, height: 800, availWidth: 1280, availHeight: 800, colorDepth: 30, pixelDepth: 30};
 var document = {
     "documentElement": {
         "attributes": {},
+        clientWidth: 1280,
+        clientHeight: 800
     },
     getElementsByTagName: function (a) {
         return []  //x写你想要的
     },
+    referrer: 'https://cd.meituan.com/meishi/c17/pn8/'
 };
-document.documentElement.clientWidth = 1280;
 
 var rohrdata = "";
 var Rohr_Opt = new Object;
@@ -4083,8 +4086,10 @@ Rohr_Opt.LogVal = "rohrdata";
                 }
 
                 iP.sign = iJ(jx);
+
                 console.log(iP.sign)
                 iP.cts = new Date().getTime();
+                console.log(iP)
                 jw = iI(iP);
                 // console.log(jw)
                 if (Rohr_Opt.LogVal && typeof window !== "undefined") {
@@ -4225,7 +4230,7 @@ Rohr_Opt.LogVal = "rohrdata";
 
         var jD = function (jH) {
             hR(jH)
-                // iv(jH);
+            // iv(jH);
         };
 
         function gk(e) {
@@ -4260,7 +4265,7 @@ Rohr_Opt.LogVal = "rohrdata";
                 dQ = [];
             console.log(e)
             for (dY = 0; dY < e.length; dY++) {
-              dQ.push(e[dY]);
+                dQ.push(e[dY]);
             }
 
             return dQ;
@@ -4320,6 +4325,21 @@ Rohr_Opt.LogVal = "rohrdata";
         };
     }, {}]
 }, {}, [17]);
-
+payloadInfo = {
+    "cityName": "成都",
+    "cateId": "17",
+    "areaId": "0",
+    "sort": "",
+    "dinnerCountAttrId": "",
+    "page": "8",
+    "userId": "127053351",
+    "uuid": "5164636f185e4d64bb7e.1643103839.1.0.0",
+    "platform": "1",
+    "partner": "126",
+    "originUrl": "https://cd.meituan.com/meishi/c17/pn8/",
+    "riskLevel": "1",
+    "optimusCode": "10"
+}
 ret = Rohr_Opt.reload('https://cd.meituan.com/meishi/api/poi/getPoiList?cityName=%E6%88%90%E9%83%BD&cateId=17&areaId=0&sort=&dinnerCountAttrId=&page=7&userId=127053351&uuid=5164636f185e4d64bb7e.1643103839.1.0.0')
+// ret = Rohr_Opt.reload(payloadInfo)
 console.log(ret)

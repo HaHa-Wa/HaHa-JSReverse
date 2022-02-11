@@ -3,7 +3,7 @@ import time
 begin=time.time()
 ocr = ddddocr.DdddOcr()
 
-with open('yzm.jpeg', 'rb') as f:
+with open('3.jpeg', 'rb') as f:
 
     img_bytes = f.read()
 

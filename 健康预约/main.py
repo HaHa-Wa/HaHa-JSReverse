@@ -28,7 +28,33 @@ def getVerify():
     print(res)
     return res
 
+
 def whilePost():
+    pass
+
+
+def submitReservation(hotel):
+    url = 'https://hk.sz.gov.cn:8118/passInfo/submitReservation'
+    while True:
+        data = {
+            'checkinDate': hotel['date'],
+            'checkCode': getVerify(),
+            'houseType': 1,
+            't': hotel['timespan'],
+            's': hotel['sign']
+        }
+        ret = session_info.post(url, data=data).json()
+        print(ret)
+        if ret['status'] != 500:
+            print('预约成功')
+            break
+
+
+def login():
+
+    certNo = base64encode(account)
+    pwd = base64encode((md5(password)))
+    url = 'https://hk.sz.gov.cn:8118/user/login'
     while True:
         data = {
             "certType": 4,
@@ -41,15 +67,7 @@ def whilePost():
         if ret.get('status') != 500:
             break
         time.sleep(0.05)
-
-def login():
-    account = 'H60289244'
-    password = 'zxd5201314'
-    certNo = base64encode(account)
-    pwd = base64encode((md5(password)))
-    url = 'https://hk.sz.gov.cn:8118/user/login'
-
-
+    print('登录成功')
 
 
 def gethotalInfo():
@@ -61,18 +79,16 @@ def gethotalInfo():
     print(hotels)
     for hotel in hotels:
         print(hotel)
-        if hotel['data'] == checkTime:
+        if hotel['date'] == checkTime:
             print(hotel)
+            return hotel
 
 
 if __name__ == '__main__':
+    account = 'H60289244'
+    password = 'zxd5201314'
     checkTime = '2022-02-15'
-
     session_info = requests.Session()
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1',
-        'Cookie': 'isolateLocale=zh-CN; isolate-web-session-id=62266044-86ce-4ab5-90a0-2e1139b14c95'
-    }
     login()
-
-    gethotalInfo()
+    hotel = gethotalInfo()
+    submitReservation(hotel)

@@ -631,6 +631,21 @@ function decodeFunc(e) {
 
 }
 
-
+e_data_4 = {
+    "web_spider_rule": "118b4bac7###sDAti|$.contact_mobile|$.virtual_mobile|$.mobile",
+    "order_sn": "220221-4###70230",
+    "virtual_mobile": "MDAzMTAwMzgw####MDAzNDAwMzgwMDM1MDAzNzAwMzA=",
+    "show_virtual_report_button": true,
+    "show_virtual_tip_after_mobile": true,
+    "show_virtual_risk_tip": false,
+    "can_virtual_extend": false,
+    "ext_number": "##81",
+    "cannot_extend_reason_type": 1,
+    "virtual_expired_timestamp": 1655###0,
+    "virtual_extend_expired_timestamp": 1655###10,
+    "show_export_popup": false,
+    "mobile_from_order_print": false,
+    "has_report": false
+}
 ret = decodeFunc(e_data_4)
 console.log(ret)

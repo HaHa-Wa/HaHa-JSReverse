@@ -641,8 +641,8 @@ e_data_4 = {
     "can_virtual_extend": false,
     "ext_number": "##81",
     "cannot_extend_reason_type": 1,
-    "virtual_expired_timestamp": 1655###0,
-    "virtual_extend_expired_timestamp": 1655###10,
+    "virtual_expired_timestamp": '1655###0',
+    "virtual_extend_expired_timestamp": '1655###10',
     "show_export_popup": false,
     "mobile_from_order_print": false,
     "has_report": false

@@ -139,7 +139,7 @@ def discern_hk(url1, url2):
     return res
 
 
-def getReceiveInfo():
+def getReceiveInfo(cookie):
     url = "https://fxg.jinritemai.com/api/order/receiveinfo?come_from=pc&aid=4272&order_id=4900430738392747220&appid=1&__token=b0d820e193376e26a4b3df76d3e6cf79&_bid=ffa_order&_lid=334782550460&msToken=H2DcORyRshF80pdXiJ0PnWXVVmU-OG8l_94wUbYjzN5LQ2l9uVQA8Zfwl8_LwiNfvHcZwKeHkPik3JmabMygT_fiJ42R7iA7GLGZAooo7vij3JKX-BJ3MTXjSWxbbT23&X-Bogus=DFSzsdVu-j0ANaZ6S57CQ37TlqtU&_signature=_02B4Z6wo00001zwmhZgAAIDAqPDelYQlERM8IoEAAK0goMk6JK5hz.KTDpcE9Epotdp0FdP3skW0Me68a9UYUKQVHeMN3-pYDtvlnaQozA2vjEnPNu0uVk5mg4lGsbyzmUqfllnSvR-6-isL0d"
 
     payload = {}
@@ -157,7 +157,7 @@ def getReceiveInfo():
         'sec-fetch-dest': 'empty',
         'referer': 'https://fxg.jinritemai.com/ffa/morder/order/list',
         'accept-language': 'zh-CN,zh;q=0.9',
-        'cookie': '***********'
+        'cookie': cookie
     }
 
     response = requests.request("GET", url, headers=headers, data=payload).json()['data']
@@ -227,13 +227,29 @@ def post_verify(captchaBody, fp, detail):
         'sec-fetch-dest': 'empty',
         'referer': 'https://fxg.jinritemai.com/',
         'accept-language': 'zh-CN,zh;q=0.9',
-
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
 
     print(response.text)
 
+
+def verify_hk(cookie):
+    # 获取图片标记
+    fp_detial = json.loads(getReceiveInfo(cookie))
+    # 获取图片链接
+    img_id, url1, url2, tip_y = getverificationCodeimg(fp_detial['fp'], fp_detial['detail'])
+    # 识别图片缺口
+    discern_res = discern_hk(url1, url2)['target']
+    print(discern_res)
+    # 图片大小 554 html展示大小为340  所以除以1.6
+    # 生成滑块轨迹
+    rawdata = make_raw_data(discern_res[0] // 1.6, tip_y, img_id, fp_detial['fp'], 1500)
+    print(rawdata)
+    # 加密滑块轨迹
+    captchaBody = encode_params(rawdata)
+    # 提交参数 实现验证
+    post_verify(captchaBody, fp_detial['fp'], detail=fp_detial['detail'])
 
 if __name__ == '__main__':
     headers = {
@@ -242,16 +258,7 @@ if __name__ == '__main__':
         'content-type': 'application/json;charset=UTF-8',
         'origin': 'https://fxg.jinritemai.com',
         'accept': 'application/json, text/plain, */*'
-
     }
 
-    fp_detial = json.loads(getReceiveInfo())
-    img_id, url1, url2, tip_y = getverificationCodeimg(fp_detial['fp'], fp_detial['detail'])
-    discern_res = discern_hk(url1, url2)['target']
-    print(discern_res)
-    # 图片大小 554 html展示大小为340  所以除以1.6
-    rawdata = make_raw_data(discern_res[0] // 1.6, tip_y, img_id, fp_detial['fp'], 1500)
-    print(rawdata)
-    captchaBody = encode_params(rawdata)
-
-    post_verify(captchaBody, fp_detial['fp'], detail=fp_detial['detail'])
+    cookie = 'passport_csrf_token_default=655cdd082546156cb2fff335244c177a; passport_csrf_token=655cdd082546156cb2fff335244c177a; Hm_lvt_b6520b076191ab4b36812da4c90f7a5e=1644897534,1645602239; _tea_utm_cache_4031=undefined; uidpasaddaehruigqreajf=0; MONITOR_WEB_ID=67dbd567-5889-4c28-9bdf-94a5ffaa6763; x-jupiter-uuid=16462059113691674; n_mh=9-mIeuD4wZnlYrrOvfzG3MuT6aQmCUtmr8FxV8Kl8xY; need_choose_shop=0; gf_part_152785=1; _tea_utm_cache_2018=undefined; s_v_web_id=verify_8bf9642ce76699838d3607dd2d5d5b95; _tea=TEA-8cbe2feb-d6a1-5a16-557b-38d25739fd71; fxg_guest_session=eyJhbGciOiJIUzI1NiIsInR5cCI6InR5cCJ9.eyJndWVzdF9pZCI6IkNnc0lBUkR6SEJnQklBRW9BUkkrQ2p3QUVoNTg0TUI4dk5lZzRWalVqRHJtTjJCSlBKbG9WMC9BcGxqZHc4UVZBWG1CTHc4bDIzTkM5THFOTk1pSWZWNWtacGU3MEVEYzRPS2l0c29hQUE9PSIsImlhdCI6MTY0NjI3NTA1NCwibmJmIjoxNjQ2Mjc1MDU0LCJleHAiOjE2NDc1NzEwNTR9.27f1565015b0cbf3e0d063eb6b0e30b1763e84fb67e64ef2a5a634e236aa91a2; ttwid=1%7C0VoVn_kMi6uTPKOk3kJp7CwiOyk6Kk597H3R0YGkm6c%7C1646275065%7C8cae0e4a9dca1513d4b3c0bc152f587c2b6191ffc74332b2717ca705301a523d; sso_uid_tt=b04afea38daa63e751e759af58af8381; sso_uid_tt_ss=b04afea38daa63e751e759af58af8381; toutiao_sso_user=08db3b5086b3ab12c695fde0eb4596ed; toutiao_sso_user_ss=08db3b5086b3ab12c695fde0eb4596ed; sid_ucp_sso_v1=1.0.0-KGM2NDMyMGIxZWE2ZmQxZWZmNWU0MmQwNjViMTE5NTFkYmM0N2MyZTQKHwjegJD90o28BxD904CRBhiwISAMMKf5y4YGOAFA6wcaAmxmIiAwOGRiM2I1MDg2YjNhYjEyYzY5NWZkZTBlYjQ1OTZlZA; ssid_ucp_sso_v1=1.0.0-KGM2NDMyMGIxZWE2ZmQxZWZmNWU0MmQwNjViMTE5NTFkYmM0N2MyZTQKHwjegJD90o28BxD904CRBhiwISAMMKf5y4YGOAFA6wcaAmxmIiAwOGRiM2I1MDg2YjNhYjEyYzY5NWZkZTBlYjQ1OTZlZA; odin_tt=66e90418d6eb7ff8711bd661d561abda18fd01650bc9ad2c997880f1e4a60d70650ab34240fb4274f3ef5e1b6325cbf5d42746aeb97bbe3312653c819a170063; ucas_sso_c0_ss=CkEKBTEuMC4wEI6Ij8TfvYqQYhjmJiCH59Dv44y8ByiwITDegJD90o28B0D_04CRBkj_h72TBlCOvNa2qaCr6WBYbxIUU-pn4ShO6IkcxUv59CX2sXYuYcw; ucas_sso_c0=CkEKBTEuMC4wEI6Ij8TfvYqQYhjmJiCH59Dv44y8ByiwITDegJD90o28B0D_04CRBkj_h72TBlCOvNa2qaCr6WBYbxIUU-pn4ShO6IkcxUv59CX2sXYuYcw; ucas_c0_ss=CkEKBTEuMC4wEKeIgcy_voqQYhjmJiCH59Dv44y8ByiwITDegJD90o28B0D_04CRBkj_h72TBlCOvNa2qaCr6WBYbxIUSNxF38HZ7T2LHdc0YPpqDew355E; sid_guard=c5c524156213ee0b35b26169c0129e8b%7C1646275071%7C5184000%7CMon%2C+02-May-2022+02%3A37%3A51+GMT; uid_tt=2dab8c8b64b78000636249b03a421ef4; uid_tt_ss=2dab8c8b64b78000636249b03a421ef4; sid_tt=c5c524156213ee0b35b26169c0129e8b; sessionid=c5c524156213ee0b35b26169c0129e8b; sessionid_ss=c5c524156213ee0b35b26169c0129e8b; sid_ucp_v1=1.0.0-KDllZDJlYWIyNjIzNDJiOTQzOTc4ZmZkMjc3ZGExN2Y0MzJjNzY4MDEKFwjegJD90o28BxD_04CRBhiwITgBQOsHGgJobCIgYzVjNTI0MTU2MjEzZWUwYjM1YjI2MTY5YzAxMjllOGI; ssid_ucp_v1=1.0.0-KDllZDJlYWIyNjIzNDJiOTQzOTc4ZmZkMjc3ZGExN2Y0MzJjNzY4MDEKFwjegJD90o28BxD_04CRBhiwITgBQOsHGgJobCIgYzVjNTI0MTU2MjEzZWUwYjM1YjI2MTY5YzAxMjllOGI; ucas_c0=CkEKBTEuMC4wEKeIgcy_voqQYhjmJiCH59Dv44y8ByiwITDegJD90o28B0D_04CRBkj_h72TBlCOvNa2qaCr6WBYbxIUSNxF38HZ7T2LHdc0YPpqDew355E; PHPSESSID=e1c9cbf3bd796f93fc9a40cd8fba9bd0; PHPSESSID_SS=e1c9cbf3bd796f93fc9a40cd8fba9bd0; login_info=%7B%22for_im_reply%22%3A%22e1c9cbf3bd796f93fc9a40cd8fba9bd0%22%7D; Hm_lpvt_b6520b076191ab4b36812da4c90f7a5e=1646275075; msToken=6pfXEKqg7Gd23QIhGqV6P0lZBZ4VVYuhXI2BTV-UMb4BTuGpqo1X-3aAqSGDDPzg68Vky2j1ndSe5MZgHVD6o7-ExHBJbppkAlGsdjoHLtIogOX45delLJs=; gftoken=YzVjNTI0MTU2MnwxNjQ2Mjc1MDg0MTV8fDAGBgYGBgY; tt_scid=fuHhMKu8C387-9DCG7vFtVPda6B3jzhc8I3BVIvajPTdR91AIOHLoNS6FlqdquWq63e8'
+    verify_hk(cookie)

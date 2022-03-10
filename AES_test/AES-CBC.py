@@ -1,6 +1,10 @@
 import base64
+import gzip
+import base64
+import json
 
 from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
 
 
 class Encrypt:
@@ -44,15 +48,53 @@ class Encrypt:
         content = base64.b64decode(content)
         text = cipher.decrypt(content).decode('utf-8'
                                               )
+        print(text)
         return text.rstrip(self.coding)
 
 
 if __name__ == '__main__':
     iv = 'gl3-w^dN)3#h6E1%'
     key = 'bN3%cH2$H1@*jCo$'
+    s = '{"t0":1646725742619,"tp":3,"ua":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36","rf":"","hl":"000000000001010","sc":{"w":2560,"h":1440},"ihs":1,"platform":1}'
+    # ss = base64.b64encode(s.encode())
+    # print(ss)
+    # t = gzip.compress(ss)
     a = Encrypt(key=key, iv=iv)
-    e = a.aes_encrypt(
-        '\x1F\x8B\b\x00\x00\x00\x00\x00\x00\x03EOM\x8BÂ0\x10ý+Ã\x9C\x14B\x9AØ6ÙfO\x8B\x07wÑâAAo\x92-)\tFSÚ\x88 øßw\x0E\vÎ\x1CÞ\x07<æÍ\x13³@#U¥´lD)\x9B\x0FÁ0\x0FhJ\x867\x8B\x06Ûô\b1Ú¢æ\x02f­íÂ5§É\x7FÂÏ5»\bdÀv\x07G\x90â$ë\x93\x9EÃ×0Dwp¿ë\x90\x8BºÔ¼T0[\x7FïÛ\r\x83\x18Î\x0EV®;§9,ý\x98.®h4\x17¼RÍ\x82k\t;ÛÛ1ü§\x90áØÓ}B\x1F\tÅ{$-ÙS\x87æ\x89w4\x8BZQiOoT\x95x1\f~"Îp\x886÷i¼\x90xý\x01µp\x8B%è\x00\x00\x00')
+    # print(str(t)[2:-1])
+    # e = a.aes_encrypt(
+    #     str(t)
+    # )
+    e = 'ivkOUHSEo1DzCHKiiGc/R1qyGal/XwewdgR5Ph0+2Gzuugb7D317MTUbiJ1gY9pXH7rL78rbSVR5ghL6dacb39mDKgH0eH+Ump4Tb43gWezj8iSTyrmx6HNAnJRAZAQa4TqZsqFXsAua8I+uKKW/15/0alotlVQH7IiWlPBZ6WLUV6xoiZyZsHn0FVnF3P/AY3DGvho5pVyMF/YJSIB5hT8e+ZF0u13R3WojniUrlq0GXdKduFjqK45bppGCeDWcEBdMbfW7jEt97NgVauJqHICprCXsIkCumoBu4DkbDy3AxT3PPTV60YkDMWomTD57Nl5TaKR/Dv7cuDtYzhhJY2OFK4CEF47Fpy2jD2SOLHWQ18k6DrWrZ1OpUzL7ofNyIX211NBzBAUICtadHxmcYw=='
     # d = a.aes_decrypt(e)
-    print("加密:", e)
-    # print("解密:", d)
+    aes = AES.new('bN3%cH2$H1@*jCo$'.encode('utf-8'), AES.MODE_CBC, 'gl3-w^dN)3#h6E1%'.encode('utf-8'))
+    aes_de = AES.new('bN3%cH2$H1@*jCo$'.encode('utf-8'), AES.MODE_CBC, 'gl3-w^dN)3#h6E1%'.encode('utf-8'))
+    print('e.encode:', e.encode())
+    print('base64.b64decode(e.encode()):',base64.b64decode(e.encode()))
+    dec = aes.decrypt(base64.b64decode(e.encode()))
+    print('dec:',dec)
+
+    print('dec:',dec.decode())
+    print(base64.b64encode(aes_de.encrypt(dec)))
+    array_list = []
+    for i in dec.decode():
+        try:
+            array_list.append(ord(i))
+        except:
+            print(i)
+    print('array_list:',array_list)
+    print('bytearray(array_list[:2]):',bytearray(array_list[:-2]))
+    print(bytearray(array_list[:-2]))
+    g_zip = gzip.decompress(bytearray(array_list[:-2]))
+    print(g_zip.decode())
+    print('gzip.decompress(bytearray(array_list[:-2])):', g_zip)
+    print(base64.b64encode(g_zip))
+    s_arry = [ord(i) for i in g_zip.decode()]
+    print(s_arry)
+    com_zip = gzip.compress(bytearray(s_arry))
+    print(com_zip)
+    print(base64.encodebytes(com_zip))
+
+    #
+    # print('g_zip-com:',str(base64.b64encode(com_zip), encoding='utf-8'))
+    # print(gzip.decompress(com_zip).decode())
+    # print(com_zip)

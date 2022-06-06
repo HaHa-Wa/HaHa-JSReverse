@@ -49,3 +49,37 @@ for (var i = 1; i < 99999; i++) {
     });
     document.__defineGetter__("cookie",function(){return org;});
 })()
+
+// 吐环境
+window = new Proxy(window, {
+
+    get: function (target, key, receiver) {
+
+        console.log('window.get.key: ', key);
+
+        if (target[key] instanceof Object) {
+
+            return new Proxy(target[key], {
+
+                get: function (a, b, c) {
+
+                    console.log('window.get.instance.key: ', key, b);
+                    return a[b];
+                },
+                set: function (a, b, c, d) {
+
+                    a[b] = c;
+                }
+            })
+        }
+
+        return target[key];
+    },
+    set: function (target, key, value, receiver) {
+
+        console.log('window.set.key: ', key);
+        console.log('window.set.value: ', value);
+        console.log(target, key, value, receiver);
+        target[key] = value;
+    }
+});

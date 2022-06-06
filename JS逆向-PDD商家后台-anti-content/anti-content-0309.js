@@ -28,16 +28,25 @@ navigator = {
         platform: "macOS"
     },
     cookieEnabled: true,
+    webdriver: false,
+    plugins: {
+        'Chrome PDF Viewer': {}
+    },
+    hasOwnProperty: function hasOwnProperty(a) {
+        if (a === 'webdriver') {
+            return false
+        }
+    }
 };
 document = {
     addEventListener: function addEventListener(a, b) {
-        // console.log("addevent",a,b)
+        console.log("addevent", a, b)
         return undefined
     },
-    cookie: 'api_uid=CkpADmIE8nmmqwBdrrfSAg==; _nano_fp=XpEYn0TbXpXJl0dqnT_QaU3pgomnK~QSG93WUygq; webp=true; mms_b84d1838=3414,120,321,3397,3434,3254,1202,1203,1204,1205,3417; x-visit-time=1646896199166',
-    getElementById: function getElementById(){
-      console.log("asdasdasdasdasdgetbyid", arguments )
-      return "<head></head>"
+    cookie: 'api_uid=CkpADmIE8nmmqwBdrrfSAg==; _nano_fp=XpEYn0TbXpXJl0dqnT_QaU3pgomnK~QSG93WUygq; webp=true; mms_b84d1838=3414,120,321,3397,3434,3254,1202,1203,1204,1205,3417; x-visit-time=1646966587231',
+    getElementById: function getElementById(a) {
+        console.log("asdasdasdasdasdgetbyid", a)
+        return "<head></head>"
     },
     // getElementById: "<head></head>",
 
@@ -70,10 +79,8 @@ history = {
         // console.log("back", arguments)
         return undefined
     }
-
-
 };
-check_array=["global","document","window","navigator","screen","history","chrome","location","localStorage"];
+check_array = ["global", "document", "window", "navigator", "screen", "history", "chrome", "location", "localStorage"];
 // check_array=["localStorage"];
 location = {
     hash: "",
@@ -84,89 +91,72 @@ location = {
     pathname: "/orders/list",
     port: "",
     protocol: "https:",
-    assign: function assign(a){
-        console.log(a)
+    assign: function assign(a) {
         return undefined
     }
 };
 localStorage = {
     getItem: function getItem(a) {
-        return localStorage[a]
+        return "XpEYn0TbXpXJl0dqnT_QaU3pgomnK~QSG93WUygq"
     },
     _nano_fp: "XpEYn0TbXpXJl0dqnT_QaU3pgomnK~QSG93WUygq"
 };
 chrome = {
-    app:{
-    "isInstalled": false,
-    "InstallState": {
-        "DISABLED": "disabled",
-        "INSTALLED": "installed",
-        "NOT_INSTALLED": "not_installed"
+    app: {
+        "isInstalled": false,
+        "InstallState": {
+            "DISABLED": "disabled",
+            "INSTALLED": "installed",
+            "NOT_INSTALLED": "not_installed"
+        },
+        "RunningState": {
+            "CANNOT_RUN": "cannot_run",
+            "READY_TO_RUN": "ready_to_run",
+            "RUNNING": "running"
+        }
     },
-    "RunningState": {
-        "CANNOT_RUN": "cannot_run",
-        "READY_TO_RUN": "ready_to_run",
-        "RUNNING": "running"
-    }
-},
     runtime: {
-    "OnInstalledReason": {
-        "CHROME_UPDATE": "chrome_update",
-        "INSTALL": "install",
-        "SHARED_MODULE_UPDATE": "shared_module_update",
-        "UPDATE": "update"
+        "OnInstalledReason": {
+            "CHROME_UPDATE": "chrome_update",
+            "INSTALL": "install",
+            "SHARED_MODULE_UPDATE": "shared_module_update",
+            "UPDATE": "update"
+        },
+        "OnRestartRequiredReason": {
+            "APP_UPDATE": "app_update",
+            "OS_UPDATE": "os_update",
+            "PERIODIC": "periodic"
+        },
+        "PlatformArch": {
+            "ARM": "arm",
+            "ARM64": "arm64",
+            "MIPS": "mips",
+            "MIPS64": "mips64",
+            "X86_32": "x86-32",
+            "X86_64": "x86-64"
+        },
+        "PlatformNaclArch": {
+            "ARM": "arm",
+            "MIPS": "mips",
+            "MIPS64": "mips64",
+            "X86_32": "x86-32",
+            "X86_64": "x86-64"
+        },
+        "PlatformOs": {
+            "ANDROID": "android",
+            "CROS": "cros",
+            "LINUX": "linux",
+            "MAC": "mac",
+            "OPENBSD": "openbsd",
+            "WIN": "win"
+        },
+        "RequestUpdateCheckStatus": {
+            "NO_UPDATE": "no_update",
+            "THROTTLED": "throttled",
+            "UPDATE_AVAILABLE": "update_available"
+        }
     },
-    "OnRestartRequiredReason": {
-        "APP_UPDATE": "app_update",
-        "OS_UPDATE": "os_update",
-        "PERIODIC": "periodic"
-    },
-    "PlatformArch": {
-        "ARM": "arm",
-        "ARM64": "arm64",
-        "MIPS": "mips",
-        "MIPS64": "mips64",
-        "X86_32": "x86-32",
-        "X86_64": "x86-64"
-    },
-    "PlatformNaclArch": {
-        "ARM": "arm",
-        "MIPS": "mips",
-        "MIPS64": "mips64",
-        "X86_32": "x86-32",
-        "X86_64": "x86-64"
-    },
-    "PlatformOs": {
-        "ANDROID": "android",
-        "CROS": "cros",
-        "LINUX": "linux",
-        "MAC": "mac",
-        "OPENBSD": "openbsd",
-        "WIN": "win"
-    },
-    "RequestUpdateCheckStatus": {
-        "NO_UPDATE": "no_update",
-        "THROTTLED": "throttled",
-        "UPDATE_AVAILABLE": "update_available"
-    }
-},
-    loadTimes: function loadTimes() {
-      return   {
-    "requestTime": 1646896197.405,
-    "startLoadTime": 1646896197.405,
-    "commitLoadTime": 1646896197.497,
-    "finishDocumentLoadTime": 1646896198.899,
-    "finishLoadTime": 1646896206.736,
-    "firstPaintTime": 1646896198.887,
-    "firstPaintAfterLoadTime": 0,
-    "navigationType": "Reload",
-    "wasFetchedViaSpdy": true,
-    "wasNpnNegotiated": true,
-    "npnNegotiatedProtocol": "h2",
-    "wasAlternateProtocolAvailable": false,
-    "connectionInfo": "h2"
-}
-    }
+
 };
 window.outerHeight = 1440;
 window.outerWidth = 2560;
@@ -177,55 +167,80 @@ window['location'] = location;
 window['history'] = history;
 window['localStorage'] = localStorage;
 window['chrome'] = chrome;
+// delete window.Buffer
+window.DeviceMotionEvent = function () {
+    console.log('asdasd:', arguments)
+}
 
-// window.DeviceMotionEvent = function () {
-//         console.log('asdasd:',arguments)
-// }
-
-function pr(check_array){
-    for(let a = 0;a < check_array.length; a++) {
-        eval(check_array[a]+`=new Proxy(`+check_array[a]+`,{
-            get:function(k,v){
-                console.log("获取了",check_array[a],"里面的",v)
+function pr(check_array) {
+    for (let a = 0; a < check_array.length; a++) {
+        eval(check_array[a] + `= new Proxy(` + check_array[a] + `,
+        {
+            get:function (k, v) {
+                console.log("获取了", check_array[a], "里面的", v)
                 return k[v];
             }
-            })`)
+        }
+        )`)
     }
 }
- pr(check_array)
 
-// var window = new Proxy(window, {
-//     get(target, property) {
-//         // console.log('调用了target:', target)
-//         console.log('调用了property: window的', property)
-//         // Reflect.get(target, property)
-//         return target[property]
+// pr(check_array)
+
+// window = new Proxy(window, {
+//
+//     get: function (target, key, receiver) {
+//
+//         console.log('window.get.key: ', key);
+//
+//         if (target[key] instanceof Object) {
+//
+//             return new Proxy(target[key], {
+//
+//                 get: function (a, b, c) {
+//
+//                     console.log('window.get.instance.key: ', key, b);
+//                     return a[b];
+//                 },
+//                 set: function (a, b, c, d) {
+//
+//                     a[b] = c;
+//                 }
+//             })
+//         }
+//
+//         return target[key];
 //     },
-//     set(target, property, value) {
-//         console.log('设置对象window', value)
-//         target[property] = value
+//     set: function (target, key, value, receiver) {
+//
+//         console.log('window.set.key: ', key);
+//         console.log('window.set.value: ', value);
+//         console.log(target, key, value, receiver);
+//         target[key] = value;
 //     }
-// })
+// });
 Object.defineProperty && Object.defineProperty(window, "outerHeight", {
-    value: 1040,
+    value: 1440,
     writable: false
 });
 Object.defineProperty && Object.defineProperty(window, "outerWidth", {
-    value: 1920,
+    value: 2560,
     writable: false
 });
 
-function DeviceOrientationEvent(){
-   // console.log("DeviceOrientationEvent",arguments)
+function DeviceOrientationEvent() {
     return false
 }
-window["DeviceOrientationEvent"]=DeviceOrientationEvent
-function DeviceMotionEvent(){
-  console.log("DeviceMotionEvent",arguments)
- }
- window["DeviceMotionEvent"]=DeviceMotionEvent
+
+window["DeviceOrientationEvent"] = DeviceOrientationEvent
+
+function DeviceMotionEvent() {
+    console.log("DeviceMotionEvent", arguments)
+}
+
+window["DeviceMotionEvent"] = DeviceMotionEvent
 delete window.Buffer; //e("0x3c", "anZ%")
-document.getElementById.toString=function(){
+document.getElementById.toString = function () {
     return undefined
 }
 
@@ -240,7 +255,6 @@ document.getElementById.toString=function(){
         , c = [];
 
     function f(t) {
-        // console.log(t)
         if (n[t])
             return n[t].exports;
         var r = n[t] = {
@@ -259,7 +273,7 @@ document.getElementById.toString=function(){
             r.exports
     }
 
-        f.m = e,
+    f.m = e,
         f.c = n,
         f.d = function (e, t, r) {
             f.o(e, t) || Object.defineProperty(e, t, {
@@ -1257,6 +1271,7 @@ document.getElementById.toString=function(){
                             try {
                                 return r(e, 0)
                             } catch (t) {
+
                                 try {
                                     return r.call(null, e, 0)
                                 } catch (t) {
@@ -1272,6 +1287,7 @@ document.getElementById.toString=function(){
                                 r = a
                             }
                             try {
+
                                 o = "function" == typeof clearTimeout ? clearTimeout : u
                             } catch (e) {
                                 o = u
@@ -1827,7 +1843,7 @@ document.getElementById.toString=function(){
                                             }
                                         ;
                                         var n = t;
-                                        ye[J] = n[e("0xa5", "(5GC")](ne[W](n[e("0xc6", "HZS0")](Math.random(), n[e("0x99", "5^JL")](Math.pow(2, 52), 1)[b]()), 10), ne[W](n['QBfVH'](Math.random(), n[e("0x14", "anZ%")](Math.pow(2,30), 1)[b]()), 10)) + "-" + X
+                                        ye[J] = n[e("0xa5", "(5GC")](ne[W](n[e("0xc6", "HZS0")](Math.random(), n[e("0x99", "5^JL")](Math.pow(2, 52), 1)[b]()), 10), ne[W](n['QBfVH'](Math.random(), n[e("0x14", "anZ%")](Math.pow(2, 30), 1)[b]()), 10)) + "-" + X
                                     },
                                     packN: function () {
                                         return ye[z](),
@@ -4117,8 +4133,36 @@ document.getElementById.toString=function(){
         }
     }
 )
-haha = new (window.wahaha("eDaA"))({
-    serverTime: Date.now()
-}).messagePack()
-console.log(haha)
-// console.log(window.wahaha.m['+sIe'])
+// haha = new (window.wahaha("eDaA"))({
+//     serverTime: (new Date).getTime()-100
+// }).messagePack()
+// console.log(haha)
+// console.log(haha.length)
+
+// function hliang() {
+//     return new (window.wahaha("eDaA"))({
+//         serverTime: (new Date).getTime() - 100
+//     }).messagePack()
+// }
+
+
+const express = require("express")
+const app = express()
+
+app.get('/anti-content', (req, res) => {
+    var myDate = new Date()
+    console.log("请求", myDate.toLocaleString(), req.ip, req.headers["user-agent"])
+    // anti = hliang()
+    res.json({
+        code: 200,
+        message: 'success',
+        data: new (window.wahaha("eDaA"))({
+            serverTime: (new Date).getTime() - 100
+        }).messagePack()
+    });
+})
+
+
+app.listen(16060, function () {
+    console.log("启动服务")
+})

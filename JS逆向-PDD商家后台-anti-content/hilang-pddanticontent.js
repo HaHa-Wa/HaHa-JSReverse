@@ -25,7 +25,7 @@ document={
       console.log("getbyid",a)
       return "<head></head>"
     },
-    cookie:'crr=Bkx33h1ghjulMLs8vSQT9hrX7QlkVTLF; _f77=092d5cf6-50cc-4d34-8d85-bc5406c3252d; _a42=842e5409-0810-4d4c-a37d-c0dbe6db1641; _dvv=6bmRLy7UPQ9TqkYZAsvEgfAQ5Pb57QLA; rcsk=6bmRLy7UPQ9TqkYZAsvEgfAQ5Pb57QLA; rcgk=Bkx33h1ghjulMLs8vSQT9hrX7QlkVTLF; rckk=Bkx33h1ghjulMLs8vSQT9hrX7QlkVTLF; ru1k=092d5cf6-50cc-4d34-8d85-bc5406c3252d; ru2k=842e5409-0810-4d4c-a37d-c0dbe6db1641; _bee=Bkx33h1ghjulMLs8vSQT9hrX7QlkVTLF; api_uid=CkpADmIE8nmmqwBdrrfSAg==; _nano_fp=XpEYn0TbXpXJl0dqnT_QaU3pgomnK~QSG93WUygq; webp=true; x-visit-time=1646198532614; mms_b84d1838=3414,120,321,3447,3397,3434,3254,1202,1203,1204,1205,3417; JSESSIONID=A1D151513412DFE449ECFD9F7812757B; PASS_ID=1-Vag3lBr2qUaKXrnn4J+rlH2a5f45aJRY72kZAjWFZhOggVl8KiKe3w/alBomVwB8SaE5DnFuFeaw3JPz7L9PzQ_133783190_106476843'
+    cookie:'api_uid=CkpADmIE8nmmqwBdrrfSAg==; _nano_fp=XpEYn0TbXpXJl0dqnT_QaU3pgomnK~QSG93WUygq; webp=true; mms_b84d1838=3414,120,321,3397,3434,3254,1202,1203,1204,1205,3417; x-visit-time=1646966587231'
 }
 var Plugins={0:{}}
 navigator={
@@ -58,7 +58,7 @@ localStorage={
   getItem:function getItem(a){
     // console.log("item",arguments)
     if (a=="_nano_fp"){
-      return "XpEYn0TbXpXJl0dqnT_QaU3pgomnK~QSG93WUygq"
+      return 'XpEYn0TbXpXJl0dqnT_QaU3pgomnK~QSG93WUygq'
     }
   }
 }
@@ -109,7 +109,7 @@ function pr(check_array){
             })`)
     }
 }
- pr(check_array)
+ // pr(check_array)
 
 //console.log(window.outerHeight,"outerHeight")
 /*Object.defineProperty(window,"Buffer",{

@@ -189,11 +189,11 @@ function params(url, obj) {
 }
 
 var g = '12574478';
-d = {
+var d = {
     "token": "45201ffbdd84036d**********" // 取cookie中的值
 };
 var i = (new Date).getTime();
-c = {
+var c = {
     "ttid": "11320@taobao_WEB_9.9.99",
     "v": "1.0",
     "type": "get",
@@ -204,10 +204,10 @@ c = {
     "api": "mtop.taobao.multi.resource.menu.common.operate",
     "data": '{}'
 };
-newStr = d.token + "&" + i + "&" + g + "&" + c.data
+var newStr = d.token + "&" + i + "&" + g + "&" + c.data
 var j = h(newStr);
 
-url_parse = {
+var url_parse = {
     jsv: '2.6.1',
     appKey: '12574478',
     t: i,
@@ -225,6 +225,6 @@ url_parse = {
     callback: 'mtopjsonp60',
     data: '{}'
 }
-url = 'https://acs.m.taobao.com/h5/mtop.taobao.eaweb.subaccount.info.get/1.0/?'
+var url = 'https://acs.m.taobao.com/h5/mtop.taobao.eaweb.subaccount.info.get/1.0/?'
 
 console.log(params(url, url_parse))

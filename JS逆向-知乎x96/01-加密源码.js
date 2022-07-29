@@ -1,3 +1,12 @@
+
+// (0,B(r).encrypt)(f()(s))
+// 'u6ayrppGGbtvAZpL1dS+fPZGZhP3S8bjdx7NwDfIUJFrV75N85xh=CkqXKfscZPL'
+//
+// f()(s) - 标准md5加密
+// bf0abd6e7c70db7fa3a9a0cc0bbae144
+//
+// s
+// '101_3_3.0+/api/v4/search/top_search+"AWCf6nR8WBOPTgzqobo3iHg0bTE4WvRnY5I=|1625135720"' 版本-路径-cookie
 const {JSDOM} = require("jsdom");
 const { atob } = require('abab');
 

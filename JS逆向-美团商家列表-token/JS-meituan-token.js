@@ -62,7 +62,8 @@ Rohr_Opt.LogVal = "rohrdata";
         fx(iH[cq]);
     }
     return fx;
-})({
+})(
+    {
     1: [function (c, b, a) {
         (function (d) {
             (function () {

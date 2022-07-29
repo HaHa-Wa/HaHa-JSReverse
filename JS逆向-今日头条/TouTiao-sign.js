@@ -1,14 +1,16 @@
 var window = global;
 window.document = {
     'referrer': 'https://www.toutiao.com/'
-}
-location = {
+};
+var location = {
     'href': 'https://www.toutiao.com/?wid=1641423780855',
     'protocol': 'https:'
-}
-navigator = {
+};
+window.location = location;
+var navigator = {
     'userAgent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
 }
+window.navigator = navigator;
 
 var glb;
 (glb = "undefined" == typeof window ? global : window)._$jsvmprt = function (b, e, f) {
@@ -683,5 +685,5 @@ var glb;
 document.cookie = '7D2t0NbMpU; __ac_signature449c48cb9560a6175301c6skbaPCHutm_cache_24=undefined; tt_scid=r-hU6BviwNh5c.96cbbRYkLa9yQLSKAokG-6g6guWQes.GIS5ziFGybbLdfpSRSI480c; MONITOR_WEB_ID=ebe66f89-84cf-49b8-a5e0-f1cc99d0cbe3'
 
 
-sign = window.byted_acrawler.sign({url: "https://www.toutiao.com/toutiao/api/pc/info"})
+var sign = window.byted_acrawler.sign({url: "https://www.toutiao.com/toutiao/api/pc/info"})
 console.log(sign)

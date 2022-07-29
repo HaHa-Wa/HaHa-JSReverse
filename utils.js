@@ -83,3 +83,18 @@ window = new Proxy(window, {
         target[key] = value;
     }
 });
+
+// nodejs 吐环境
+check_array=["document","window","navigator","screen","history","chrome","location","localStorage"];
+// check_array=["localStorage"];
+function pr(check_array){
+    for(let a = 0;a < check_array.length; a++) {
+        eval(check_array[a]+`=new Proxy(`+check_array[a]+`,{
+            get:function(k,v){
+                console.log("获取了",check_array[a],"里面的",v)
+                return k[v];
+            }
+            })`)
+    }
+}
+ // pr(check_array)
